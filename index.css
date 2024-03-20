@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: grid;
+  padding: 5rem;
+  background-color: hsl(220 20% 95%);
+  height: 100vh;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 2rem;
+  font-size: 3rem;
+  color: blueviolet;
+}
+
+.avatars{
+
+  --avatars-count:10;
+  --avatar-size:75px;
+
+  --column-size:calc(var(--avatar-size)/2);
+  
+  display: grid;
+  grid-template-columns: repeat(var(--avatars-count),var(--column-size));
+  transition: all 0.5s;
+  transition-delay:0.5s;
+}
+
+.avatars:hover{
+  --column-size:calc(var(--avatar-size)*1.5);
+  transition-delay:0s;
+}
+
+.avatar{
+  width: var(--avatar-size);
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0.25rem 0.25rem 0.5rem hsl(0 0% 0% / 0.2);
+transition: all 0.5s;
+
+}
+
+.profile:hover{
+  z-index: 10;
+
+  & .avatar {
+    scale: 2;
+    cursor: pointer;
+    border: 3px solid black;
+  } 
+}
+
+.profile:hover + .profile > .avatar,
+.profile:has(+ .profile:hover) .avatar
+{
+  scale: 1.5;
+  filter: grayscale(100%);
+  z-index: 1;
+}
+
+.profile::after{
+  content: attr(data-text);
+  position: relative;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(32, 32, 32);
+  color: aliceblue;
+  padding: 8px 25px;
+  z-index: -10;
+  
+  opacity: 0;
+  transition: top 0.5s , opacity 0.5s;
+}
+
+.profile:hover:after{
+  opacity: 100%;
+  top: 60px;
+}
